@@ -18,6 +18,8 @@
 #include "Pythia.h"
 #include "TTree.h"
 #include "TFile.h"
+#include <vector>
+#include "TH2.h"
 #define PR(x) std::cout << #x << " = " << (x) << std::endl;
 using namespace Pythia8; 
 
@@ -29,7 +31,8 @@ bool isInAcceptanceH(int, const Event&);  // acceptance filter hadron candidate
 int myEvent(Pythia&, double);            // event handler (analyze event)
 double deltaPhi(double, double); 
 double deltaEta(double, double);
-
+TH2F* deltaPhiPt = new TH2F("deltaPhiPt","",200,-10,10,200,0,20);
+TH2F* deltaEtaPt = new TH2F("deltaEtaPt","",200,-5,5,200,0,20);
 //
 // This structure contains all the info we 
 // collect. This info is later stored in a tree.
@@ -69,9 +72,6 @@ struct hf2eDecay_t {
   int   code;
   float sigmaGen;
   float weight;   // useful for normalization/x-section
-
-  float delPhi;
-  float delEta;
 };
 
 hf2eDecay_t hf2eDecay;
@@ -100,8 +100,7 @@ int main(int argc, char* argv[]) {
 	      "hf_id/I:hf_status/I:hf_pt/F:hf_pz/F:hf_phi/F:hf_eta/F:hf_y/F:"
 	      "e_id/I:e_status/I:e_pt/F:e_pz/F:e_phi/F:e_eta/F:e_y/F:"
 	      "q1_id/I:q1_x/F:q2_id/I:q2_x/F:"
-	      "Q2fac/F:alphas/F:ptHat/F:nFinal/I:pdf1/F:pdf2/F:code/I:sigmaGen/F:weight/F:"
-	      "deltaPhi/F:deltaEta/F");
+	      "Q2fac/F:alphas/F:ptHat/F:nFinal/I:pdf1/F:pdf2/F:code/I:sigmaGen/F:weight/F");
     
   //
   //  Create instance of Pythia 
@@ -202,7 +201,7 @@ int main(int argc, char* argv[]) {
 int myEvent(Pythia& pythia, double nMaxEvt)
 {
   Event &event = pythia.event;
-    
+
   int nelectrons = 0;
   int ic = 0;
   for (int i = 0; i < event.size(); i++) {
@@ -251,15 +250,13 @@ int myEvent(Pythia& pythia, double nMaxEvt)
       // Also impose pt cut on hadrons as in data.                                                                                  
       vector<int> hadrons;
       vector<int> B_hadrons;
-
+            
       for (int i = 1; i < event.size(); i++) {
         if (event[i].isFinal() && event[i].isCharged() && event[i].pT() > 0.2 && isInAcceptanceH(i, event)) {
 	  hadrons.push_back(i);
 	  //	  if (event.isAncestor(i, i_B)) B_hadrons.push_back(i); // From Bingchu code, save in case needed later
         }
       }
-
-
 
       //
       //  Store in tuple
@@ -310,16 +307,15 @@ int myEvent(Pythia& pythia, double nMaxEvt)
         hid = hadrons[ih];
         phi2 = event[hid].phi();
 	eta2 = event[hid].eta();
-        double dphi = deltaPhi(phi1, phi2);
-        double deta = deltaEta(eta1, eta2);
+        float dphi = deltaPhi(phi1, phi2);
+        float deta = deltaEta(eta1, eta2);
         if(event[hid].pT()<0.2) continue;
-	hf2eDecay.delPhi = dphi;
-	hf2eDecay.delEta = deta;
-      }
-      
-    }                          
-  }                              
-  return nelectrons;
+	deltaPhiPt -> Fill(dphi,(float)event[i].pT());
+	deltaEtaPt -> Fill(deta,(float)event[i].pT());
+      }                          
+    }                              
+    return nelectrons;
+  }
 }
 
 //
