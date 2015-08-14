@@ -1,0 +1,19 @@
+Universe        = vanilla
+Notification    = never
+Requirements    = (CPU_Type != "crs") && (CPU_Experiment == "star") 
+Rank            = CPU_Speed 
+Priority        = +19
+GetEnv          = True
+Initialdir      = /star/u/zamiller/simu/NPETemplates
+Input           = /dev/null
+Notify_user     = zamiller@rcf.rhic.bnl.gov
+GetEnv          = True
++Experiment     = "star"
++Job_Type       = "cas"
+
+Executable       = script/run_B_0.csh
+Output           = log/B_0.out
+Error            = log/B_0.err
+Log              = log/B_0.olog
+Queue 
+     
