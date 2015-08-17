@@ -4,22 +4,22 @@
 //  This is an example program to study c -> e and b -> e decays
 //  in 200 GeV pp collisions with Pythia8.
 //
-//  Creates templated for deltaPhi in b or c, depending on unput cards.
+//  The decays are stored in a ROOT tree and written to file.
+//
+//  Once written most things can be controlled through the runcard,
+//  so there's no need to recompile.
 //
 //  Usage: pmainHF2e  runcard  rootfile
 // 
 //  Author: Thomas Ullrich  
 //  Last update: September 9, 2008
-//  Modified: Z.W. Miller Aug 17, 2015
 //==============================================================================
-#include <ctime>
 #include <cmath>
-#include <vector>
 #include "Pythia.h"
 #include "TTree.h"
 #include "TFile.h"
-#include "TH2D.h"
-#include "TH3D.h"
+#include <vector>
+#include "TH2.h"
 #define PR(x) std::cout << #x << " = " << (x) << std::endl;
 using namespace Pythia8; 
 
@@ -28,67 +28,87 @@ using namespace Pythia8;
 //
 bool isInAcceptanceE(int, const Event&);  // acceptance filter electron candidate
 bool isInAcceptanceH(int, const Event&);  // acceptance filter hadron candidate
-int myEvent(Pythia&, vector<TH2D*> &, vector<TH3D*>&, double); // event handler (analyze event)
+int myEvent(Pythia&, double);            // event handler (analyze event)
 double deltaPhi(double, double); 
 double deltaEta(double, double);
+//TH2F* deltaPhiPt = new TH2F("deltaPhiPt","",200,-10,10,200,0,20);
+//TH2F* deltaEtaPt = new TH2F("deltaEtaPt","",200,-5,5,200,0,20);
+vector<float> dPhiV;
+vector<float> dEtaV;
+
+//
+// This structure contains all the info we 
+// collect. This info is later stored in a tree.
+// This is our own business and has nothing to do
+// with Pythia directly.
+//
+struct hf2eDecay_t {
+  int orig_id;         // grandmother
+  int orig_status;        
+    
+  int hf_id;         // mother (c/b hadron)
+  int hf_status;
+  float hf_pt;
+  float hf_pz;
+  float hf_phi;
+  float hf_eta;
+  float hf_y;
+    
+  int e_id;            // electron
+  int e_status;
+  float e_pt;
+  float e_pz;
+  float e_phi;
+  float e_eta;
+  float e_y;
+        
+  int   q1_id;
+  float q1_x;
+  int   q2_id;
+  float q2_x;
+  float Q2fac;
+  float alphas;
+  float ptHat;
+  int   nFinal;
+  float pdf1;
+  float pdf2;
+  int   code;
+  float sigmaGen;
+  float weight;   // useful for normalization/x-section
+  float delPhi;
+  float delEta;
+ 
+};
+
+hf2eDecay_t hf2eDecay;
 
 int main(int argc, char* argv[]) {
     
-  if (argc != 4) {
-    cout << "Usage: " << argv[0] << " runcard rootfile histName" << endl;
+  if (argc != 3) {
+    cout << "Usage: " << argv[0] << " runcard  rootfile" << endl;
     return 2;
   }
   char* runcard  = argv[1];
   char* rootfile = argv[2];
-  char* histname = argv[3];
   const char* xmlDB    = "/star/u/zbtang/myTools/pythia8142/xmldoc";
     
   //--------------------------------------------------------------
   //  Initialization
   //--------------------------------------------------------------
-  
-  time_t now = time(0);
-  cout << "============================================================================" \
-       << endl;
-  cout << "Executing program '" << argv[0] << "', start at: " << ctime(&now);
-  cout << "Arguments: " << argv[1] << " " << argv[2] << " " << argv[3] << endl;
-  cout << "============================================================================" \
-       << endl;
     
   //
   //  ROOT
   //
-  char text[64];
   TFile *hfile  = new TFile(rootfile,"RECREATE");
-  vector<TH2D*> histos2D;
-  sprintf(text,"histos2D%s%d",histname,0);
-  histos2D.push_back(new TH2D(text,"NPE - h", 150,0.,15.,200, -0.5*M_PI, 1.5*M_PI));
-  sprintf(text,"histos2D%s%d",histname,1);
-  histos2D.push_back(new TH2D(text,"NPE pt vs y", 150, 0., 15., 60, -3, 3));
-  sprintf(text,"histos2D%s%d",histname,2);
-  histos2D.push_back(new TH2D(text,"near-side Nch", 150, 0, 15, 50, 0., 50.));
-  sprintf(text,"histos2D%s%d",histname,3);
-  histos2D.push_back(new TH2D(text,"away-side Nch", 150, 0, 15, 50, 0., 50.));
-  sprintf(text,"histos2D%s%d",histname,4);
-  histos2D.push_back(new TH2D(text,"near-side pt", 150, 0, 15, 150, 0., 15.));
-  sprintf(text,"histos2D%s%d",histname,5);
-  histos2D.push_back(new TH2D(text,"away-side pt", 150, 0, 15, 150, 0., 15.));
-  sprintf(text,"histos2D%s%d",histname,6);
-  histos2D.push_back(new TH2D(text,"near-side m0", 150, 0, 15, 100, 0., 1.));
-  sprintf(text,"histos2D%s%d",histname,7);
-  histos2D.push_back(new TH2D(text,"away-side m0", 150, 0, 15, 100, 0., 1.));
-  sprintf(text,"histos2D%s%d",histname,8);
-  histos2D.push_back(new TH2D(text,"pt balance", 150, 0, 15, 100, -10, 10.));
-  sprintf(text,"histos2D%s%d",histname,9);
-  histos2D.push_back(new TH2D(text,"B daughter pt", 150, 0, 15, 150, 0, 15.));
-
-  vector<TH3D*> histos3D;
-  sprintf(text,"histo3D%s%d",histname,0);
-  histos3D.push_back(new TH3D(text,"NPE - h", 150,0.,15.,150,0,15,200, -0.5*M_PI, 1.5*M_PI));
-  sprintf(text,"histo3D%s%d",histname,1);
-  histos3D.push_back(new TH3D(text,"NPE - B-->h", 150,0.,15.,150,0,15,200, -0.5*M_PI, 1.5*M_PI));
-
-
+  TTree tree("tree","c -> e decays pp at 200 GeV");
+  tree.Branch("hf2eDecay",&hf2eDecay.orig_id, 
+	      "orig_id/I:orig_status/I:"
+	      "hf_id/I:hf_status/I:hf_pt/F:hf_pz/F:hf_phi/F:hf_eta/F:hf_y/F:"
+	      "e_id/I:e_status/I:e_pt/F:e_pz/F:e_phi/F:e_eta/F:e_y/F:"
+	      "q1_id/I:q1_x/F:q2_id/I:q2_x/F:"
+	      "Q2fac/F:alphas/F:ptHat/F:nFinal/I:pdf1/F:pdf2/F:code/I:sigmaGen/F:weight/F:"
+	      "dPhiV/F:dEtaV/F");
+    
   //
   //  Create instance of Pythia 
   //
@@ -154,9 +174,10 @@ int main(int argc, char* argv[]) {
       cout << "Error: too many errors in event generation - check your settings & code" << endl;
       break;
     }
-    n = myEvent(pythia, histos2D, histos3D, maxNumberOfEvents);  // in myEvent we deal with the whole event and return
+    n = myEvent(pythia, maxNumberOfEvents);  // in myEvent we deal with the whole event and return
     // the number of electrons recorded for book keeping
     numberOfElectrons += n; 
+    if (n) tree.Fill();   
     ievent++;
     if (ievent%pace == 0) {
       cout << "# of events generated = " << ievent 
@@ -177,13 +198,6 @@ int main(int argc, char* argv[]) {
   pythia.statistics();
   cout << "Writing File" << endl;
   hfile->Write();
-
-  now = time(0);
-  cout << "============================================================================\
-" << endl;
-  cout << "Program finished at: " << ctime(&now);
-  cout << "============================================================================\
-" << endl;
     
   return 0;
 }
@@ -191,13 +205,12 @@ int main(int argc, char* argv[]) {
 //
 //  Event analysis
 //
-int myEvent(Pythia& pythia, vector<TH2D*> &histos2D, vector<TH3D*> &histos3D, double nMaxEvt)
+int myEvent(Pythia& pythia, double nMaxEvt)
 {
   Event &event = pythia.event;
 
   int nelectrons = 0;
   int ic = 0;
-  int ie = 0;
   for (int i = 0; i < event.size(); i++) {
     if (abs(event[i].id()) == 11) { // event is electron
 
@@ -210,7 +223,6 @@ int myEvent(Pythia& pythia, vector<TH2D*> &histos2D, vector<TH3D*> &histos3D, do
 	abort();
       }
       ic = mothers[0];
-      ie = i;
       int ic_id = abs(event[ic].id());
       int flavor = static_cast<int>(ic_id/pow(10.,static_cast<int>(log10(ic_id))));
       if (flavor != 4 && flavor != 5) continue; // c (b) hadrons start with 4(5)  
@@ -238,73 +250,84 @@ int myEvent(Pythia& pythia, vector<TH2D*> &histos2D, vector<TH3D*> &histos3D, do
 	iorig = -2;
 	break;
       }
-    }
-  }          
-  // At this point we have J/psi and mother B, the J/psi detectable in
-  // STAR.
-  // We require them to be stable, i.e. not decayed.
-  // Also impose pt cut on hadrons as in data.
-  vector<int> hadrons;
-  vector<int> B_hadrons;
-  
-  for (int i = 1; i < event.size(); i++) {
-    if (event[i].isFinal() && event[i].isCharged() && event[i].pT() > 0.2 && isInAcceptanceH(i, event) && (event[i]!=event[ie])) {
-      hadrons.push_back(i);
-      //	  if (event.isAncestor(i, i_B)) B_hadrons.push_back(i); // From Bingchu code, save in case needed later
-    }
-  }
-  
-  //
-  //  Fill histograms                                                       
-  //
+            
+      // At this point we have J/psi and mother B, the J/psi detectable in
+      // STAR.                                                                               // Now Collect (i) all hadrons and (ii) all hadrons from the B.   
+      // We require them to be stable, i.e. not decayed.             
+      // Also impose pt cut on hadrons as in data.                                                                                  
+      vector<int> hadrons;
+      vector<int> B_hadrons;
+            
+      for (int i = 1; i < event.size(); i++) {
+        if (event[i].isFinal() && event[i].isCharged() && event[i].pT() > 0.2 && isInAcceptanceH(i, event)) {
+	  hadrons.push_back(i);
+	  //	  if (event.isAncestor(i, i_B)) B_hadrons.push_back(i); // From Bingchu code, save in case needed later
+        }
+      }
 
-  //histos[2]->Fill(event[i_B].pT(), 1.);                                       
-  histos2D[1]->Fill(event[ie].pT(), event[ie].y());
-  Double_t npept = event[ie].pT();
-  double phi1, phi2;
-  int nnear = 0;
-  int naway = 0;
-  double ptbalance = npept;
-  int hid;
-  double dphi=999;
-  phi1 = event[ie].phi();
-  
-  for (unsigned int i=0; i<B_hadrons.size(); i++) {
-    hid = B_hadrons[i];
-    phi2 = event[hid].phi();
-    histos2D[9]->Fill(npept, event[hid].pT());
-    histos3D[1]->Fill(npept, event[hid].pT(), deltaPhi(phi1, phi2));
+      //
+      //  Store in tuple
+      //
+            
+      // If no origin or more than 1 than id == 0
+      // and the status identifies what happens: -1 no mother, 
+      // -2 more than 1. This should not happen at all, but ...
+      hf2eDecay.orig_id     = iorig >= 0 ? event[iorig].id() : 0;
+      hf2eDecay.orig_status = iorig >= 0 ? event[iorig].status() : iorig;
+            
+      hf2eDecay.hf_id     = event[ic].id();  
+      hf2eDecay.hf_status = event[ic].status();
+      hf2eDecay.hf_pt     = event[ic].pT();
+      hf2eDecay.hf_pz     = event[ic].pz();
+      hf2eDecay.hf_phi    = event[ic].phi();
+      hf2eDecay.hf_eta    = event[ic].eta();     
+      hf2eDecay.hf_y      = event[ic].y();
+            
+      hf2eDecay.e_id       = event[i].id();     
+      hf2eDecay.e_status   = event[i].status();
+      hf2eDecay.e_pt    = event[i].pT();
+      hf2eDecay.e_pz    = event[i].pz();
+      hf2eDecay.e_phi    = event[i].phi();
+      hf2eDecay.e_eta      = event[i].eta();     
+      hf2eDecay.e_y    = event[i].y();
+            
+      hf2eDecay.q1_id      = pythia.info.id1();
+      hf2eDecay.q1_x       = pythia.info.x1();
+      hf2eDecay.q2_id      = pythia.info.id2();
+      hf2eDecay.q2_x       = pythia.info.x2();
+      hf2eDecay.Q2fac      = pythia.info.Q2Fac();
+      hf2eDecay.alphas     = pythia.info.alphaS();
+      hf2eDecay.ptHat      = pythia.info.pTHat();
+      hf2eDecay.nFinal     = pythia.info.nFinal();
+      hf2eDecay.pdf1       = pythia.info.pdf1();
+      hf2eDecay.pdf2       = pythia.info.pdf2();
+      hf2eDecay.code       = pythia.info.code();
+      hf2eDecay.sigmaGen   = pythia.info.sigmaGen();
+      hf2eDecay.weight     = pythia.info.sigmaGen()/nMaxEvt; // useful for obtaining x-section
+      // vector branches already assigned in branch declaration
+
+      double phi1, phi2;
+      double eta1, eta2;
+      int hid;
+      phi1 = event[i].phi();
+      eta1 = event[i].eta();
+      for (unsigned int ih=0; ih<hadrons.size(); ih++) {
+        hid = hadrons[ih];
+        phi2 = event[hid].phi();
+	eta2 = event[hid].eta();
+        float dphi = deltaPhi(phi1, phi2);
+        float deta = deltaEta(eta1, eta2);
+        if(event[hid].pT()<0.2) continue;
+	dPhiV.push_back(dphi);
+	dEtaV.push_back(deta);
+	//deltaPhiPt -> Fill(dphi,(float)event[i].pT());
+	//deltaEtaPt -> Fill(deta,(float)event[i].pT());
+      }                          
+    }    
+
+    return nelectrons;
   }
-  
-  for (unsigned int i=0; i<hadrons.size(); i++) {
-    hid = hadrons[i];
-    phi2 = event[hid].phi();
-    if(!(phi1==0) && !(phi2==0))
-      dphi = deltaPhi(phi1, phi2);
-    histos3D[0]->Fill(npept, event[hid].pT(), dphi);
-    if(event[hid].pT()<0.5) continue;
-    histos2D[0]->Fill(npept, dphi);
-    if( abs(dphi) < 1) {//near side                                                   
-      nnear++;
-      ptbalance += event[hid].pT();
-      histos2D[4]->Fill(npept, event[hid].pT());
-      histos2D[6]->Fill(npept, event[hid].m0());
-    }
-    if (abs(dphi-M_PI)<1) { //away side                                               
-      naway++;
-      histos2D[5]->Fill(npept, event[hid].pT());
-      histos2D[7]->Fill(npept, event[hid].m0());
-      ptbalance -= event[hid].pT();
-    }
-  }
-  histos2D[2]->Fill(npept, nnear);
-  histos2D[3]->Fill(npept, naway);
-  histos2D[8]->Fill(npept, ptbalance);
-  hadrons.clear();
-  
-  return nelectrons;
 }
-
 
 //
 //  Acceptance filter

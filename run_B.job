@@ -17,3 +17,26 @@ Error            = log/B_0.err
 Log              = log/B_0.olog
 Queue 
      
+Executable       = script/run_B_1.csh
+Output           = log/B_1.out
+Error            = log/B_1.err
+Log              = log/B_1.olog
+Queue
+
+Executable       = script/run_B_2.csh
+Output           = log/B_2.out
+Error            = log/B_2.err
+Log              = log/B_2.olog
+Queue
+
+Executable       = script/run_B_3.csh
+Output           = log/B_3.out
+Error            = log/B_3.err
+Log              = log/B_3.olog
+Queue
+
+Executable       = script/run_B_4.csh
+Output           = log/B_4.out
+Error            = log/B_4.err
+Log              = log/B_4.olog
+Queue
