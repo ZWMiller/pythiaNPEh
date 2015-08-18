@@ -156,6 +156,7 @@ int main(int argc, char* argv[]) {
     }
     n = myEvent(pythia, histos2D, histos3D, maxNumberOfEvents);  // in myEvent we deal with the whole event and return
     // the number of electrons recorded for book keeping
+    if(n == 0) continue;
     numberOfElectrons += n; 
     ievent++;
     if (ievent%pace == 0) {
@@ -205,9 +206,10 @@ int myEvent(Pythia& pythia, vector<TH2D*> &histos2D, vector<TH3D*> &histos3D, do
       //  Check if mother is a c/b hadron
       //
       vector<int> mothers = event.motherList(i);
-      if (mothers.size() != 1) {
+      if (mothers.size() > 1) {
 	cout << "Error: electron has more than one mother. Stop." << endl;
-	abort();
+	//abort();
+	return 0;
       }
       ic = mothers[0];
       ie = i;
@@ -248,7 +250,7 @@ int myEvent(Pythia& pythia, vector<TH2D*> &histos2D, vector<TH3D*> &histos3D, do
   vector<int> B_hadrons;
   
   for (int i = 1; i < event.size(); i++) {
-    if (event[i].isFinal() && event[i].isCharged() && event[i].pT() > 0.2 && isInAcceptanceH(i, event) && (event[i]!=event[ie])) {
+    if (event[i].isFinal() && event[i].isCharged() && event[i].pT() > 0.2 && isInAcceptanceH(i, event) && !(event[i].id()==event[ie].id())) {
       hadrons.push_back(i);
       //	  if (event.isAncestor(i, i_B)) B_hadrons.push_back(i); // From Bingchu code, save in case needed later
     }

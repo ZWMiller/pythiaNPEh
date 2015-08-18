@@ -1,0 +1,312 @@
+Universe        = vanilla
+Notification    = never
+Requirements    = (CPU_Type != "crs") && (CPU_Experiment == "star") 
+Rank            = CPU_Speed 
+Priority        = +19
+GetEnv          = True
+Initialdir      = /star/u/zamiller/simu/NPETemplates
+Input           = /dev/null
+Notify_user     = zamiller@rcf.rhic.bnl.gov
+GetEnv          = True
++Experiment     = "star"
++Job_Type       = "cas"
+
+Executable       = script/run_C_0.csh
+Output           = log/C_0.out
+Error            = log/C_0.err
+Log              = log/C_0.olog
+Queue 
+     
+Executable       = script/run_C_1.csh
+Output           = log/C_1.out
+Error            = log/C_1.err
+Log              = log/C_1.olog
+Queue
+
+Executable       = script/run_C_2.csh
+Output           = log/C_2.out
+Error            = log/C_2.err
+Log              = log/C_2.olog
+Queue
+
+Executable       = script/run_C_3.csh
+Output           = log/C_3.out
+Error            = log/C_3.err
+Log              = log/C_3.olog
+Queue
+
+Executable       = script/run_C_4.csh
+Output           = log/C_4.out
+Error            = log/C_4.err
+Log              = log/C_4.olog
+Queue
+
+Executable       = script/run_C_5.csh
+Output           = log/C_5.out
+Error            = log/C_5.err
+Log              = log/C_5.olog
+Queue
+
+Executable       = script/run_C_6.csh
+Output           = log/C_6.out
+Error            = log/C_6.err
+Log              = log/C_6.olog
+Queue
+
+Executable       = script/run_C_7.csh
+Output           = log/C_7.out
+Error            = log/C_7.err
+Log              = log/C_7.olog
+Queue
+
+Executable       = script/run_C_8.csh
+Output           = log/C_8.out
+Error            = log/C_8.err
+Log              = log/C_8.olog
+Queue
+
+Executable       = script/run_C_9.csh
+Output           = log/C_9.out
+Error            = log/C_9.err
+Log              = log/C_9.olog
+Queue
+
+Executable       = script/run_C_10.csh
+Output           = log/C_10.out
+Error            = log/C_10.err
+Log              = log/C_10.olog
+Queue
+
+Executable       = script/run_C_11.csh
+Output           = log/C_11.out
+Error            = log/C_11.err
+Log              = log/C_11.olog
+Queue
+
+Executable       = script/run_C_12.csh
+Output           = log/C_12.out
+Error            = log/C_12.err
+Log              = log/C_12.olog
+Queue
+
+Executable       = script/run_C_13.csh
+Output           = log/C_13.out
+Error            = log/C_13.err
+Log              = log/C_13.olog
+Queue
+
+Executable       = script/run_C_14.csh
+Output           = log/C_14.out
+Error            = log/C_14.err
+Log              = log/C_14.olog
+Queue
+
+Executable       = script/run_C_15.csh
+Output           = log/C_15.out
+Error            = log/C_15.err
+Log              = log/C_15.olog
+Queue
+
+Executable       = script/run_C_16.csh
+Output           = log/C_16.out
+Error            = log/C_16.err
+Log              = log/C_16.olog
+Queue
+
+Executable       = script/run_C_17.csh
+Output           = log/C_17.out
+Error            = log/C_17.err
+Log              = log/C_17.olog
+Queue
+
+Executable       = script/run_C_18.csh
+Output           = log/C_18.out
+Error            = log/C_18.err
+Log              = log/C_18.olog
+Queue
+
+Executable       = script/run_C_19.csh
+Output           = log/C_19.out
+Error            = log/C_19.err
+Log              = log/C_19.olog
+Queue
+
+Executable       = script/run_C_20.csh
+Output           = log/C_20.out
+Error            = log/C_20.err
+Log              = log/C_20.olog
+Queue
+
+Executable       = script/run_C_21.csh
+Output           = log/C_21.out
+Error            = log/C_21.err
+Log              = log/C_21.olog
+Queue
+
+Executable       = script/run_C_22.csh
+Output           = log/C_22.out
+Error            = log/C_22.err
+Log              = log/C_22.olog
+Queue
+
+Executable       = script/run_C_23.csh
+Output           = log/C_23.out
+Error            = log/C_23.err
+Log              = log/C_23.olog
+Queue
+
+Executable       = script/run_C_24.csh
+Output           = log/C_24.out
+Error            = log/C_24.err
+Log              = log/C_24.olog
+Queue
+
+Executable       = script/run_C_25.csh
+Output           = log/C_25.out
+Error            = log/C_25.err
+Log              = log/C_25.olog
+Queue
+
+Executable       = script/run_C_26.csh
+Output           = log/C_26.out
+Error            = log/C_26.err
+Log              = log/C_26.olog
+Queue
+
+Executable       = script/run_C_27.csh
+Output           = log/C_27.out
+Error            = log/C_27.err
+Log              = log/C_27.olog
+Queue
+
+Executable       = script/run_C_28.csh
+Output           = log/C_28.out
+Error            = log/C_28.err
+Log              = log/C_28.olog
+Queue
+
+Executable       = script/run_C_29.csh
+Output           = log/C_29.out
+Error            = log/C_29.err
+Log              = log/C_29.olog
+Queue
+
+Executable       = script/run_C_30.csh
+Output           = log/C_30.out
+Error            = log/C_30.err
+Log              = log/C_30.olog
+Queue
+
+Executable       = script/run_C_31.csh
+Output           = log/C_31.out
+Error            = log/C_31.err
+Log              = log/C_31.olog
+Queue
+
+Executable       = script/run_C_32.csh
+Output           = log/C_32.out
+Error            = log/C_32.err
+Log              = log/C_32.olog
+Queue
+
+Executable       = script/run_C_33.csh
+Output           = log/C_33.out
+Error            = log/C_33.err
+Log              = log/C_33.olog
+Queue
+
+Executable       = script/run_C_34.csh
+Output           = log/C_34.out
+Error            = log/C_34.err
+Log              = log/C_34.olog
+Queue
+
+Executable       = script/run_C_35.csh
+Output           = log/C_35.out
+Error            = log/C_35.err
+Log              = log/C_35.olog
+Queue
+
+Executable       = script/run_C_36.csh
+Output           = log/C_36.out
+Error            = log/C_36.err
+Log              = log/C_36.olog
+Queue
+
+Executable       = script/run_C_37.csh
+Output           = log/C_37.out
+Error            = log/C_37.err
+Log              = log/C_37.olog
+Queue
+
+Executable       = script/run_C_38.csh
+Output           = log/C_38.out
+Error            = log/C_38.err
+Log              = log/C_38.olog
+Queue
+
+Executable       = script/run_C_39.csh
+Output           = log/C_39.out
+Error            = log/C_39.err
+Log              = log/C_39.olog
+Queue
+
+Executable       = script/run_C_40.csh
+Output           = log/C_40.out
+Error            = log/C_40.err
+Log              = log/C_40.olog
+Queue
+
+Executable       = script/run_C_41.csh
+Output           = log/C_41.out
+Error            = log/C_41.err
+Log              = log/C_41.olog
+Queue
+
+Executable       = script/run_C_42.csh
+Output           = log/C_42.out
+Error            = log/C_42.err
+Log              = log/C_42.olog
+Queue
+
+Executable       = script/run_C_43.csh
+Output           = log/C_43.out
+Error            = log/C_43.err
+Log              = log/C_43.olog
+Queue
+
+Executable       = script/run_C_44.csh
+Output           = log/C_44.out
+Error            = log/C_44.err
+Log              = log/C_44.olog
+Queue
+
+Executable       = script/run_C_45.csh
+Output           = log/C_45.out
+Error            = log/C_45.err
+Log              = log/C_45.olog
+Queue
+
+Executable       = script/run_C_46.csh
+Output           = log/C_46.out
+Error            = log/C_46.err
+Log              = log/C_46.olog
+Queue
+
+Executable       = script/run_C_47.csh
+Output           = log/C_47.out
+Error            = log/C_47.err
+Log              = log/C_47.olog
+Queue
+
+Executable       = script/run_C_48.csh
+Output           = log/C_48.out
+Error            = log/C_48.err
+Log              = log/C_48.olog
+Queue
+
+Executable       = script/run_C_49.csh
+Output           = log/C_49.out
+Error            = log/C_49.err
+Log              = log/C_49.olog
+Queue

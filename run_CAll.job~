@@ -1,0 +1,312 @@
+Universe        = vanilla
+Notification    = never
+Requirements    = (CPU_Type != "crs") && (CPU_Experiment == "star") 
+Rank            = CPU_Speed 
+Priority        = +19
+GetEnv          = True
+Initialdir      = /star/u/zamiller/simu/NPETemplates
+Input           = /dev/null
+Notify_user     = zamiller@rcf.rhic.bnl.gov
+GetEnv          = True
++Experiment     = "star"
++Job_Type       = "cas"
+
+Executable       = script/run_B_0.csh
+Output           = log/B_0.out
+Error            = log/B_0.err
+Log              = log/B_0.olog
+Queue 
+     
+Executable       = script/run_B_1.csh
+Output           = log/B_1.out
+Error            = log/B_1.err
+Log              = log/B_1.olog
+Queue
+
+Executable       = script/run_B_2.csh
+Output           = log/B_2.out
+Error            = log/B_2.err
+Log              = log/B_2.olog
+Queue
+
+Executable       = script/run_B_3.csh
+Output           = log/B_3.out
+Error            = log/B_3.err
+Log              = log/B_3.olog
+Queue
+
+Executable       = script/run_B_4.csh
+Output           = log/B_4.out
+Error            = log/B_4.err
+Log              = log/B_4.olog
+Queue
+
+Executable       = script/run_B_5.csh
+Output           = log/B_5.out
+Error            = log/B_5.err
+Log              = log/B_5.olog
+Queue
+
+Executable       = script/run_B_6.csh
+Output           = log/B_6.out
+Error            = log/B_6.err
+Log              = log/B_6.olog
+Queue
+
+Executable       = script/run_B_7.csh
+Output           = log/B_7.out
+Error            = log/B_7.err
+Log              = log/B_7.olog
+Queue
+
+Executable       = script/run_B_8.csh
+Output           = log/B_8.out
+Error            = log/B_8.err
+Log              = log/B_8.olog
+Queue
+
+Executable       = script/run_B_9.csh
+Output           = log/B_9.out
+Error            = log/B_9.err
+Log              = log/B_9.olog
+Queue
+
+Executable       = script/run_B_10.csh
+Output           = log/B_10.out
+Error            = log/B_10.err
+Log              = log/B_10.olog
+Queue
+
+Executable       = script/run_B_11.csh
+Output           = log/B_11.out
+Error            = log/B_11.err
+Log              = log/B_11.olog
+Queue
+
+Executable       = script/run_B_12.csh
+Output           = log/B_12.out
+Error            = log/B_12.err
+Log              = log/B_12.olog
+Queue
+
+Executable       = script/run_B_13.csh
+Output           = log/B_13.out
+Error            = log/B_13.err
+Log              = log/B_13.olog
+Queue
+
+Executable       = script/run_B_14.csh
+Output           = log/B_14.out
+Error            = log/B_14.err
+Log              = log/B_14.olog
+Queue
+
+Executable       = script/run_B_15.csh
+Output           = log/B_15.out
+Error            = log/B_15.err
+Log              = log/B_15.olog
+Queue
+
+Executable       = script/run_B_16.csh
+Output           = log/B_16.out
+Error            = log/B_16.err
+Log              = log/B_16.olog
+Queue
+
+Executable       = script/run_B_17.csh
+Output           = log/B_17.out
+Error            = log/B_17.err
+Log              = log/B_17.olog
+Queue
+
+Executable       = script/run_B_18.csh
+Output           = log/B_18.out
+Error            = log/B_18.err
+Log              = log/B_18.olog
+Queue
+
+Executable       = script/run_B_19.csh
+Output           = log/B_19.out
+Error            = log/B_19.err
+Log              = log/B_19.olog
+Queue
+
+Executable       = script/run_B_20.csh
+Output           = log/B_20.out
+Error            = log/B_20.err
+Log              = log/B_20.olog
+Queue
+
+Executable       = script/run_B_21.csh
+Output           = log/B_21.out
+Error            = log/B_21.err
+Log              = log/B_21.olog
+Queue
+
+Executable       = script/run_B_22.csh
+Output           = log/B_22.out
+Error            = log/B_22.err
+Log              = log/B_22.olog
+Queue
+
+Executable       = script/run_B_23.csh
+Output           = log/B_23.out
+Error            = log/B_23.err
+Log              = log/B_23.olog
+Queue
+
+Executable       = script/run_B_24.csh
+Output           = log/B_24.out
+Error            = log/B_24.err
+Log              = log/B_24.olog
+Queue
+
+Executable       = script/run_B_25.csh
+Output           = log/B_25.out
+Error            = log/B_25.err
+Log              = log/B_25.olog
+Queue
+
+Executable       = script/run_B_26.csh
+Output           = log/B_26.out
+Error            = log/B_26.err
+Log              = log/B_26.olog
+Queue
+
+Executable       = script/run_B_27.csh
+Output           = log/B_27.out
+Error            = log/B_27.err
+Log              = log/B_27.olog
+Queue
+
+Executable       = script/run_B_28.csh
+Output           = log/B_28.out
+Error            = log/B_28.err
+Log              = log/B_28.olog
+Queue
+
+Executable       = script/run_B_29.csh
+Output           = log/B_29.out
+Error            = log/B_29.err
+Log              = log/B_29.olog
+Queue
+
+Executable       = script/run_B_30.csh
+Output           = log/B_30.out
+Error            = log/B_30.err
+Log              = log/B_30.olog
+Queue
+
+Executable       = script/run_B_31.csh
+Output           = log/B_31.out
+Error            = log/B_31.err
+Log              = log/B_31.olog
+Queue
+
+Executable       = script/run_B_32.csh
+Output           = log/B_32.out
+Error            = log/B_32.err
+Log              = log/B_32.olog
+Queue
+
+Executable       = script/run_B_33.csh
+Output           = log/B_33.out
+Error            = log/B_33.err
+Log              = log/B_33.olog
+Queue
+
+Executable       = script/run_B_34.csh
+Output           = log/B_34.out
+Error            = log/B_34.err
+Log              = log/B_34.olog
+Queue
+
+Executable       = script/run_B_35.csh
+Output           = log/B_35.out
+Error            = log/B_35.err
+Log              = log/B_35.olog
+Queue
+
+Executable       = script/run_B_36.csh
+Output           = log/B_36.out
+Error            = log/B_36.err
+Log              = log/B_36.olog
+Queue
+
+Executable       = script/run_B_37.csh
+Output           = log/B_37.out
+Error            = log/B_37.err
+Log              = log/B_37.olog
+Queue
+
+Executable       = script/run_B_38.csh
+Output           = log/B_38.out
+Error            = log/B_38.err
+Log              = log/B_38.olog
+Queue
+
+Executable       = script/run_B_39.csh
+Output           = log/B_39.out
+Error            = log/B_39.err
+Log              = log/B_39.olog
+Queue
+
+Executable       = script/run_B_40.csh
+Output           = log/B_40.out
+Error            = log/B_40.err
+Log              = log/B_40.olog
+Queue
+
+Executable       = script/run_B_41.csh
+Output           = log/B_41.out
+Error            = log/B_41.err
+Log              = log/B_41.olog
+Queue
+
+Executable       = script/run_B_42.csh
+Output           = log/B_42.out
+Error            = log/B_42.err
+Log              = log/B_42.olog
+Queue
+
+Executable       = script/run_B_43.csh
+Output           = log/B_43.out
+Error            = log/B_43.err
+Log              = log/B_43.olog
+Queue
+
+Executable       = script/run_B_44.csh
+Output           = log/B_44.out
+Error            = log/B_44.err
+Log              = log/B_44.olog
+Queue
+
+Executable       = script/run_B_45.csh
+Output           = log/B_45.out
+Error            = log/B_45.err
+Log              = log/B_45.olog
+Queue
+
+Executable       = script/run_B_46.csh
+Output           = log/B_46.out
+Error            = log/B_46.err
+Log              = log/B_46.olog
+Queue
+
+Executable       = script/run_B_47.csh
+Output           = log/B_47.out
+Error            = log/B_47.err
+Log              = log/B_47.olog
+Queue
+
+Executable       = script/run_B_48.csh
+Output           = log/B_48.out
+Error            = log/B_48.err
+Log              = log/B_48.olog
+Queue
+
+Executable       = script/run_B_49.csh
+Output           = log/B_49.out
+Error            = log/B_49.err
+Log              = log/B_49.olog
+Queue

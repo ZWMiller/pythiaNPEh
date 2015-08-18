@@ -1,0 +1,55 @@
+000 (6918148.000.000) 08/17 22:35:40 Job submitted from host: <130.199.206.133:49817>
+...
+001 (6918148.000.000) 08/17 23:47:53 Job executing on host: <130.199.204.100:56919>
+...
+006 (6918148.000.000) 08/17 23:48:02 Image size of job updated: 1752940
+	14  -  MemoryUsage of job (MB)
+	13736  -  ResidentSetSize of job (KB)
+...
+006 (6918148.000.000) 08/17 23:53:03 Image size of job updated: 1831904
+	147  -  MemoryUsage of job (MB)
+	150020  -  ResidentSetSize of job (KB)
+...
+005 (6918148.000.000) 08/18 00:13:21 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:25:04, Sys 0 00:00:06  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:25:04, Sys 0 00:00:06  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated
+	   Cpus                 :                 1         1
+	   Disk (KB)            :        1        1  41047573
+	   Memory (MB)          :      147        1      2010
+...
+000 (6358418.000.000) 08/18 08:47:56 Job submitted from host: <130.199.206.138:36175>
+...
+001 (6358418.000.000) 08/18 10:17:55 Job executing on host: <130.199.206.200:39991>
+...
+006 (6358418.000.000) 08/18 10:18:03 Image size of job updated: 1831660
+	147  -  MemoryUsage of job (MB)
+	149704  -  ResidentSetSize of job (KB)
+...
+006 (6358418.000.000) 08/18 10:23:03 Image size of job updated: 1831904
+	147  -  MemoryUsage of job (MB)
+	150020  -  ResidentSetSize of job (KB)
+...
+004 (6358418.000.000) 08/18 10:32:59 Job was evicted.
+	(0) Job was not checkpointed.
+		Usr 0 00:14:51, Sys 0 00:00:03  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated
+	   Cpus                 :                 1         1
+	   Disk (KB)            :        1        1  21780982
+	   Memory (MB)          :      147        1      3002
+...
+009 (6358418.000.000) 08/18 10:33:00 Job was aborted by the user.
+	via condor_rm (by user zamiller)
+...
+000 (6371710.000.000) 08/18 10:48:40 Job submitted from host: <130.199.206.138:36175>
+...

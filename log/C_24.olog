@@ -1,0 +1,59 @@
+000 (6918160.000.000) 08/17 22:35:40 Job submitted from host: <130.199.206.133:49817>
+...
+001 (6918160.000.000) 08/17 23:48:07 Job executing on host: <130.199.206.90:53259>
+...
+006 (6918160.000.000) 08/17 23:48:16 Image size of job updated: 1831664
+	147  -  MemoryUsage of job (MB)
+	149708  -  ResidentSetSize of job (KB)
+...
+006 (6918160.000.000) 08/17 23:53:17 Image size of job updated: 1831864
+	147  -  MemoryUsage of job (MB)
+	150004  -  ResidentSetSize of job (KB)
+...
+006 (6918160.000.000) 08/18 00:13:19 Image size of job updated: 1831980
+	147  -  MemoryUsage of job (MB)
+	150092  -  ResidentSetSize of job (KB)
+...
+005 (6918160.000.000) 08/18 00:16:50 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:28:31, Sys 0 00:00:01  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:28:31, Sys 0 00:00:01  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated
+	   Cpus                 :                 1         1
+	   Disk (KB)            :        1        1  40725608
+	   Memory (MB)          :      147        1      2006
+...
+000 (6358430.000.000) 08/18 08:47:56 Job submitted from host: <130.199.206.138:36175>
+...
+001 (6358430.000.000) 08/18 10:18:01 Job executing on host: <130.199.206.80:45297>
+...
+006 (6358430.000.000) 08/18 10:18:09 Image size of job updated: 1831668
+	147  -  MemoryUsage of job (MB)
+	149708  -  ResidentSetSize of job (KB)
+...
+006 (6358430.000.000) 08/18 10:23:09 Image size of job updated: 1831868
+	147  -  MemoryUsage of job (MB)
+	150004  -  ResidentSetSize of job (KB)
+...
+004 (6358430.000.000) 08/18 10:32:59 Job was evicted.
+	(0) Job was not checkpointed.
+		Usr 0 00:14:53, Sys 0 00:00:01  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated
+	   Cpus                 :                 1         1
+	   Disk (KB)            :        1        1  40872048
+	   Memory (MB)          :      147        1      2006
+...
+009 (6358430.000.000) 08/18 10:33:00 Job was aborted by the user.
+	via condor_rm (by user zamiller)
+...
+000 (6371722.000.000) 08/18 10:48:40 Job submitted from host: <130.199.206.138:36175>
+...

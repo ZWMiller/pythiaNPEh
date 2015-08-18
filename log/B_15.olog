@@ -1,0 +1,53 @@
+000 (6899459.000.000) 08/17 17:54:05 Job submitted from host: <130.199.206.133:49817>
+...
+001 (6899459.000.000) 08/17 17:54:44 Job executing on host: <130.199.206.219:44126>
+...
+007 (6899459.000.000) 08/17 17:54:44 Shadow exception!
+	Error from slot5@rcas6169.rcf.bnl.gov: Failed to execute '/direct/star+u/zamiller/simu/NPETemplates/script/run_B_15.csh': (errno=13: 'Permission denied')
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+...
+012 (6899459.000.000) 08/17 17:54:44 Job was held.
+	Error from slot5@rcas6169.rcf.bnl.gov: Failed to execute '/direct/star+u/zamiller/simu/NPETemplates/script/run_B_15.csh': (errno=13: 'Permission denied')
+	Code 6 Subcode 13
+...
+000 (6900511.000.000) 08/17 19:30:02 Job submitted from host: <130.199.206.133:49817>
+...
+001 (6900511.000.000) 08/17 19:30:50 Job executing on host: <130.199.204.84:35496>
+...
+006 (6900511.000.000) 08/17 19:30:59 Image size of job updated: 1831656
+	147  -  MemoryUsage of job (MB)
+	149612  -  ResidentSetSize of job (KB)
+...
+006 (6900511.000.000) 08/17 19:36:00 Image size of job updated: 1831904
+	147  -  MemoryUsage of job (MB)
+	150028  -  ResidentSetSize of job (KB)
+...
+006 (6900511.000.000) 08/17 19:41:00 Image size of job updated: 1832032
+	147  -  MemoryUsage of job (MB)
+	150184  -  ResidentSetSize of job (KB)
+...
+006 (6900511.000.000) 08/17 19:46:00 Image size of job updated: 1832032
+	147  -  MemoryUsage of job (MB)
+	150188  -  ResidentSetSize of job (KB)
+...
+005 (6900511.000.000) 08/17 19:49:26 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:18:27, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:18:27, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated
+	   Cpus                 :                 1         1
+	   Disk (KB)            :        1        1  41151094
+	   Memory (MB)          :      147        1      2010
+...
+009 (6899459.000.000) 08/17 19:59:51 Job was aborted by the user.
+	via condor_rm (by user zamiller)
+...
+000 (6371763.000.000) 08/18 10:51:01 Job submitted from host: <130.199.206.138:36175>
+...
