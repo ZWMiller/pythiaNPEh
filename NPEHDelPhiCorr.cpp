@@ -240,70 +240,72 @@ int myEvent(Pythia& pythia, vector<TH2D*> &histos2D, vector<TH3D*> &histos3D, do
 	iorig = -2;
 	break;
       }
-    }
-  }          
-  // At this point we have J/psi and mother B, the J/psi detectable in
-  // STAR.
-  // We require them to be stable, i.e. not decayed.
-  // Also impose pt cut on hadrons as in data.
-  vector<int> hadrons;
-  vector<int> B_hadrons;
-  
-  for (int i = 1; i < event.size(); i++) {
-    if (event[i].isFinal() && event[i].isCharged() && event[i].pT() > 0.2 && isInAcceptanceH(i, event) && !(event[i].id()==event[ie].id())) {
-      hadrons.push_back(i);
-      //	  if (event.isAncestor(i, i_B)) B_hadrons.push_back(i); // From Bingchu code, save in case needed later
+    
+           
+      // At this point we have J/psi and mother B, the J/psi detectable in
+      // STAR.
+      // We require them to be stable, i.e. not decayed.
+      // Also impose pt cut on hadrons as in data.
+      vector<int> hadrons;
+      vector<int> B_hadrons;
+      
+      for (int i = 1; i < event.size(); i++) {
+	if (event[i].isFinal() && event[i].isCharged() && event[i].pT() > 0.2 && isInAcceptanceH(i, event) && !(event[i].id()==event[ie].id())) {
+	  hadrons.push_back(i);
+	  //	  if (event.isAncestor(i, i_B)) B_hadrons.push_back(i); // From Bingchu code, save in case needed later
+	}
+      }
+      
+      //
+      //  Fill histograms                                                       
+      //
+      
+      //histos[2]->Fill(event[i_B].pT(), 1.);                                       
+      histos2D[1]->Fill(event[ie].pT(), event[ie].y());
+      Double_t npept = event[ie].pT();
+      double phi1, phi2;
+      int nnear = 0;
+      int naway = 0;
+      double ptbalance = npept;
+      int hid;
+      double dphi=999;
+      phi1 = event[ie].phi();
+      
+      for (unsigned int i=0; i<B_hadrons.size(); i++) {
+	hid = B_hadrons[i];
+	phi2 = event[hid].phi();
+	histos2D[9]->Fill(npept, event[hid].pT());
+	histos3D[1]->Fill(npept, event[hid].pT(), deltaPhi(phi1, phi2));
+      }
+      
+      for (unsigned int i=0; i<hadrons.size(); i++) {
+	hid = hadrons[i];
+	phi2 = event[hid].phi();
+	if(!(phi1==0) && !(phi2==0))
+	  dphi = deltaPhi(phi1, phi2);
+	histos3D[0]->Fill(npept, event[hid].pT(), dphi);
+	if(event[hid].pT()<0.5) continue;
+	histos2D[0]->Fill(npept, dphi);
+	if( abs(dphi) < 1) {//near side                                                   
+	  nnear++;
+	  ptbalance += event[hid].pT();
+	  histos2D[4]->Fill(npept, event[hid].pT());
+	  histos2D[6]->Fill(npept, event[hid].m0());
+	}
+	if (abs(dphi-M_PI)<1) { //away side                                               
+	  naway++;
+	  histos2D[5]->Fill(npept, event[hid].pT());
+	  histos2D[7]->Fill(npept, event[hid].m0());
+	  ptbalance -= event[hid].pT();
+	}
+      }
+      histos2D[2]->Fill(npept, nnear);
+      histos2D[3]->Fill(npept, naway);
+      histos2D[8]->Fill(npept, ptbalance);
+      hadrons.clear();
     }
   }
-  
-  //
-  //  Fill histograms                                                       
-  //
 
-  //histos[2]->Fill(event[i_B].pT(), 1.);                                       
-  histos2D[1]->Fill(event[ie].pT(), event[ie].y());
-  Double_t npept = event[ie].pT();
-  double phi1, phi2;
-  int nnear = 0;
-  int naway = 0;
-  double ptbalance = npept;
-  int hid;
-  double dphi=999;
-  phi1 = event[ie].phi();
-  
-  for (unsigned int i=0; i<B_hadrons.size(); i++) {
-    hid = B_hadrons[i];
-    phi2 = event[hid].phi();
-    histos2D[9]->Fill(npept, event[hid].pT());
-    histos3D[1]->Fill(npept, event[hid].pT(), deltaPhi(phi1, phi2));
-  }
-  
-  for (unsigned int i=0; i<hadrons.size(); i++) {
-    hid = hadrons[i];
-    phi2 = event[hid].phi();
-    if(!(phi1==0) && !(phi2==0))
-      dphi = deltaPhi(phi1, phi2);
-    histos3D[0]->Fill(npept, event[hid].pT(), dphi);
-    if(event[hid].pT()<0.5) continue;
-    histos2D[0]->Fill(npept, dphi);
-    if( abs(dphi) < 1) {//near side                                                   
-      nnear++;
-      ptbalance += event[hid].pT();
-      histos2D[4]->Fill(npept, event[hid].pT());
-      histos2D[6]->Fill(npept, event[hid].m0());
-    }
-    if (abs(dphi-M_PI)<1) { //away side                                               
-      naway++;
-      histos2D[5]->Fill(npept, event[hid].pT());
-      histos2D[7]->Fill(npept, event[hid].m0());
-      ptbalance -= event[hid].pT();
-    }
-  }
-  histos2D[2]->Fill(npept, nnear);
-  histos2D[3]->Fill(npept, naway);
-  histos2D[8]->Fill(npept, ptbalance);
-  hadrons.clear();
-  
   return nelectrons;
 }
 
