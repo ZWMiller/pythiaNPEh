@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) {
 
   vector<TH3D*> histos3D;
   sprintf(text,"histo3D%s%d",histname,0);
-  histos3D.push_back(new TH3D(text,"NPE - h", 150,0.,15.,150,0,15,200, -0.5*M_PI, 1.5*M_PI));
+  histos3D.push_back(new TH3D(text,"NPE - h", 150,0.,15., 150,0,15, 200, -10., 10.));
   sprintf(text,"histo3D%s%d",histname,1);
   histos3D.push_back(new TH3D(text,"NPE - B-->h", 150,0.,15.,150,0,15,200, -0.5*M_PI, 1.5*M_PI));
 
@@ -339,13 +339,13 @@ bool isInAcceptanceH(int i, const Event& event)
 double deltaPhi(double phi1, double phi2)
 {
   // move to range [0, 2pi]                                                           
-  if (phi1<0) phi1 += 2*M_PI;
-  if (phi2<0) phi2 += 2*M_PI;
+  //if (phi1<0) phi1 += 2*M_PI;
+  //if (phi2<0) phi2 += 2*M_PI;
 
   // correct difference                                                               
   double delta = phi2-phi1;
-  if (delta<-0.5*M_PI) delta += 2*M_PI;
-  if (delta> 1.5*M_PI) delta -= 2*M_PI;
+  if (delta < -M_PI) delta += 2*M_PI;
+  if (delta > M_PI) delta -= 2*M_PI;
 
   return delta;
 }
